@@ -1,0 +1,456 @@
+﻿{
+  "nodes": [
+    {
+      "nodeId": "userGuide",
+      "name": "common:core.module.template.system_config",
+      "intro": "common:core.module.template.system_config_info",
+      "avatar": "core/workflow/template/systemConfig",
+      "flowNodeType": "userGuide",
+      "position": {
+        "x": -45,
+        "y": -465
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "welcomeText",
+          "label": "core.app.Welcome Text",
+          "valueType": "string",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "value": ""
+        },
+        {
+          "key": "variables",
+          "label": "core.app.Chat Variable",
+          "valueType": "any",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "value": []
+        },
+        {
+          "key": "questionGuide",
+          "label": "core.app.Question Guide",
+          "valueType": "any",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "value": {
+            "open": false
+          }
+        },
+        {
+          "key": "tts",
+          "label": "",
+          "valueType": "any",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "value": {
+            "type": "web"
+          }
+        },
+        {
+          "key": "whisper",
+          "label": "",
+          "valueType": "any",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "value": {
+            "open": false,
+            "autoSend": false,
+            "autoTTSResponse": false
+          }
+        },
+        {
+          "key": "scheduleTrigger",
+          "label": "",
+          "valueType": "any",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "value": null
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "448745",
+      "name": "common:core.module.template.work_start",
+      "intro": "",
+      "avatar": "core/workflow/template/workflowStart",
+      "flowNodeType": "workflowStart",
+      "position": {
+        "x": 465,
+        "y": -375
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "userChatInput",
+          "label": "workflow:user_question",
+          "valueType": "string",
+          "required": true,
+          "renderTypeList": [
+            "reference",
+            "textarea"
+          ],
+          "toolDescription": "用户问题",
+          "debugLabel": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "userChatInput",
+          "key": "userChatInput",
+          "type": "static",
+          "valueType": "string",
+          "label": "common:core.module.input.label.user question",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "nodeId": "xabMjy5GxwCx9Z5n",
+      "name": "秘塔搜索",
+      "intro": "基于秘塔API的智能搜索工具，支持多种搜索范围和结果摘要",
+      "toolDescription": "使用秘塔 API 进行网络搜索。",
+      "avatar": "https://file.fastgpt.io/hti44k5d-fastgpt-io-production/system/plugin/tools/metaso/metasoSearch/logo",
+      "flowNodeType": "tool",
+      "showStatus": true,
+      "position": {
+        "x": 885,
+        "y": -375
+      },
+      "version": "",
+      "inputs": [
+        {
+          "key": "system_input_config",
+          "label": "",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "inputList": [
+            {
+              "key": "apiKey",
+              "label": "Metaso API密钥",
+              "description": "Metaso API密钥，用于访问问答服务",
+              "required": true,
+              "inputType": "secret"
+            }
+          ]
+        },
+        {
+          "key": "query",
+          "label": "搜索关键词",
+          "renderTypeList": [
+            "reference",
+            "input"
+          ],
+          "valueType": "string",
+          "description": "要搜索的关键词或查询语句",
+          "required": true,
+          "toolDescription": "搜索关键词"
+        },
+        {
+          "key": "scope",
+          "label": "搜索范围",
+          "defaultValue": "all",
+          "selectedTypeIndex": 0,
+          "renderTypeList": [
+            "select",
+            "reference"
+          ],
+          "valueType": "string",
+          "description": "指定搜索的范围类型",
+          "required": false,
+          "list": [
+            {
+              "label": "全部",
+              "value": "all"
+            },
+            {
+              "label": "网页",
+              "value": "webpage"
+            },
+            {
+              "label": "文库",
+              "value": "document"
+            },
+            {
+              "label": "学术",
+              "value": "scholar"
+            },
+            {
+              "label": "图片",
+              "value": "image"
+            },
+            {
+              "label": "视频",
+              "value": "video"
+            },
+            {
+              "label": "播客",
+              "value": "podcast"
+            }
+          ],
+          "value": "all"
+        },
+        {
+          "key": "size",
+          "label": "结果数量",
+          "defaultValue": 10,
+          "selectedTypeIndex": 0,
+          "renderTypeList": [
+            "numberInput",
+            "reference"
+          ],
+          "valueType": "number",
+          "description": "返回的搜索结果数量（1-20）",
+          "required": false,
+          "max": 20,
+          "min": 1,
+          "value": 10
+        },
+        {
+          "key": "includeSummary",
+          "label": "包含摘要",
+          "defaultValue": true,
+          "renderTypeList": [
+            "switch"
+          ],
+          "valueType": "boolean",
+          "description": "是否在搜索结果中包含智能摘要",
+          "required": false,
+          "value": true
+        }
+      ],
+      "outputs": [
+        {
+          "id": "result",
+          "type": "static",
+          "key": "result",
+          "valueType": "arrayObject",
+          "label": "搜索结果",
+          "valueDesc": "",
+          "description": ""
+        },
+        {
+          "id": "system_error_text",
+          "key": "system_error_text",
+          "type": "error",
+          "valueType": "string",
+          "label": "错误信息",
+          "valueDesc": "",
+          "description": ""
+        }
+      ],
+      "pluginId": "systemTool-metaso/metasoSearch",
+      "toolConfig": {
+        "systemTool": {
+          "toolId": "systemTool-metaso/metasoSearch"
+        }
+      },
+      "catchError": false
+    },
+    {
+      "nodeId": "wmPfxzEw6lUdkSZo",
+      "name": "获取当前时间",
+      "intro": "获取当前时间",
+      "avatar": "https://file.fastgpt.io/hti44k5d-fastgpt-io-production/system/plugin/tools/getTime/logo",
+      "flowNodeType": "tool",
+      "showStatus": true,
+      "position": {
+        "x": 885,
+        "y": 0
+      },
+      "version": "",
+      "inputs": [],
+      "outputs": [
+        {
+          "id": "time",
+          "type": "static",
+          "key": "time",
+          "valueType": "string",
+          "label": "时间",
+          "description": "当前时间",
+          "valueDesc": ""
+        },
+        {
+          "id": "system_error_text",
+          "key": "system_error_text",
+          "type": "error",
+          "valueType": "string",
+          "label": "错误信息",
+          "valueDesc": "",
+          "description": ""
+        }
+      ],
+      "pluginId": "systemTool-getTime",
+      "toolConfig": {
+        "systemTool": {
+          "toolId": "systemTool-getTime"
+        }
+      },
+      "catchError": false
+    },
+    {
+      "nodeId": "kncJxP3rPp6E9eix",
+      "name": "MySQL",
+      "intro": "基于 MySQL 数据库的智能数据库连接工具，支持多种格式输出",
+      "avatar": "https://file.fastgpt.io/hti44k5d-fastgpt-io-production/system/plugin/tools/dbops/mysql/logo",
+      "flowNodeType": "tool",
+      "showStatus": true,
+      "position": {
+        "x": 885,
+        "y": -720
+      },
+      "version": "",
+      "inputs": [
+        {
+          "key": "system_input_config",
+          "label": "",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "inputList": [
+            {
+              "key": "database",
+              "label": "数据库名称",
+              "required": true,
+              "inputType": "input"
+            },
+            {
+              "key": "host",
+              "label": "主机名",
+              "required": true,
+              "inputType": "input"
+            },
+            {
+              "key": "port",
+              "label": "数据库连接端口号",
+              "required": true,
+              "inputType": "numberInput"
+            },
+            {
+              "key": "username",
+              "label": "数据库账号",
+              "required": true,
+              "inputType": "input"
+            },
+            {
+              "key": "password",
+              "label": "数据库密码",
+              "required": true,
+              "inputType": "secret"
+            },
+            {
+              "key": "maxConnections",
+              "label": "最大连接数",
+              "required": false,
+              "inputType": "numberInput"
+            },
+            {
+              "key": "connectionTimeout",
+              "label": "连接超时时间",
+              "required": false,
+              "inputType": "numberInput"
+            },
+            {
+              "key": "charset",
+              "label": "字符集",
+              "required": false,
+              "inputType": "input"
+            },
+            {
+              "key": "timezone",
+              "label": "时区",
+              "required": false,
+              "inputType": "input"
+            }
+          ]
+        },
+        {
+          "key": "sql",
+          "label": "SQL",
+          "defaultValue": "",
+          "selectedTypeIndex": 0,
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "valueType": "string",
+          "description": "SQL 语句，可以传入 SQL 语句直接执行",
+          "required": true,
+          "toolDescription": "SQL 语句，可以传入 SQL 语句直接执行",
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "result",
+          "type": "static",
+          "key": "result",
+          "valueType": "string",
+          "label": "结果",
+          "description": "执行结果",
+          "valueDesc": ""
+        },
+        {
+          "id": "system_error_text",
+          "key": "system_error_text",
+          "type": "error",
+          "valueType": "string",
+          "label": "错误信息",
+          "valueDesc": "",
+          "description": ""
+        }
+      ],
+      "pluginId": "systemTool-dbops/mysql",
+      "toolConfig": {
+        "systemTool": {
+          "toolId": "systemTool-dbops/mysql"
+        }
+      },
+      "catchError": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "448745",
+      "target": "xabMjy5GxwCx9Z5n",
+      "sourceHandle": "448745-source-right",
+      "targetHandle": "xabMjy5GxwCx9Z5n-target-left"
+    },
+    {
+      "source": "448745",
+      "target": "wmPfxzEw6lUdkSZo",
+      "sourceHandle": "448745-source-right",
+      "targetHandle": "wmPfxzEw6lUdkSZo-target-left"
+    },
+    {
+      "source": "448745",
+      "target": "kncJxP3rPp6E9eix",
+      "sourceHandle": "448745-source-right",
+      "targetHandle": "kncJxP3rPp6E9eix-target-left"
+    }
+  ],
+  "chatConfig": {
+    "variables": [],
+    "_id": "69d4823705f4092b84d0f90e",
+    "scheduledTriggerConfig": {
+      "cronString": "",
+      "timezone": "Asia/Shanghai",
+      "defaultPrompt": ""
+    }
+  }
+}

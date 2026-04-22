@@ -1,0 +1,617 @@
+﻿{
+  "nodes": [
+    {
+      "nodeId": "userGuide",
+      "name": "common:core.module.template.system_config",
+      "intro": "common:core.module.template.system_config_info",
+      "avatar": "core/workflow/template/systemConfig",
+      "flowNodeType": "userGuide",
+      "position": {
+        "x": 262.2732338817093,
+        "y": -476.00241136598146
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "welcomeText",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "string",
+          "label": "core.app.Welcome Text",
+          "value": ""
+        },
+        {
+          "key": "variables",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "core.app.Chat Variable",
+          "value": []
+        },
+        {
+          "key": "questionGuide",
+          "valueType": "any",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "core.app.Question Guide",
+          "value": {
+            "open": false
+          }
+        },
+        {
+          "key": "tts",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": {
+            "type": "web"
+          }
+        },
+        {
+          "key": "whisper",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": {
+            "open": false,
+            "autoSend": false,
+            "autoTTSResponse": false
+          }
+        },
+        {
+          "key": "scheduleTrigger",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": null
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "448745",
+      "name": "common:core.module.template.work_start",
+      "intro": "",
+      "avatar": "core/workflow/template/workflowStart",
+      "flowNodeType": "workflowStart",
+      "position": {
+        "x": 332.7732338817093,
+        "y": -1050.0024113659815
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "userChatInput",
+          "renderTypeList": [
+            "reference",
+            "textarea"
+          ],
+          "valueType": "string",
+          "label": "workflow:user_question",
+          "required": true,
+          "toolDescription": "用户问题",
+          "debugLabel": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "userChatInput",
+          "key": "userChatInput",
+          "label": "common:core.module.input.label.user question",
+          "type": "static",
+          "valueType": "string",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "nodeId": "e6cbmJvL7PwKSWuX",
+      "name": "知识库搜索",
+      "intro": "调用“语义检索”和“全文检索”能力，从“知识库”中查找可能与问题相关的参考内容",
+      "avatar": "core/workflow/template/datasetSearch",
+      "flowNodeType": "datasetSearchNode",
+      "showStatus": true,
+      "position": {
+        "x": 903.2732338817093,
+        "y": -1169.0024113659815
+      },
+      "version": "4.9.2",
+      "inputs": [
+        {
+          "key": "datasets",
+          "renderTypeList": [
+            "selectDataset",
+            "reference"
+          ],
+          "label": "common:core.module.input.label.Select dataset",
+          "value": [],
+          "valueType": "selectDataset",
+          "required": true,
+          "valueDesc": "[\n  {\n    \"datasetId\": \"6693a4a6b69b7a9b0e37d9b0\"\n  }\n]",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "similarity",
+          "renderTypeList": [
+            "selectDatasetParamsModal"
+          ],
+          "label": "",
+          "value": 0.4,
+          "valueType": "number",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "limit",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "value": 3000,
+          "valueType": "number",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "searchMode",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "string",
+          "value": "mixedRecall",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "embeddingWeight",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "number",
+          "value": 0.25,
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "usingReRank",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "boolean",
+          "value": false,
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "rerankModel",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "string",
+          "value": "gpt-4.1-mini",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "rerankWeight",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "number",
+          "value": 0.5,
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "datasetSearchUsingExtensionQuery",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "boolean",
+          "value": false,
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "datasetSearchExtensionModel",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "string",
+          "value": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "datasetSearchExtensionBg",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "string",
+          "value": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "authTmbId",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "boolean",
+          "value": false,
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "userChatInput",
+          "renderTypeList": [
+            "reference",
+            "textarea"
+          ],
+          "valueType": "string",
+          "label": "workflow:user_question",
+          "toolDescription": "需要检索的内容",
+          "required": true,
+          "value": [
+            "448745",
+            "userChatInput"
+          ],
+          "debugLabel": ""
+        },
+        {
+          "key": "collectionFilterMatch",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "label": "workflow:collection_metadata_filter",
+          "valueType": "string",
+          "isPro": true,
+          "description": "workflow:filter_description",
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "quoteQA",
+          "key": "quoteQA",
+          "label": "common:core.module.Dataset quote.label",
+          "description": "特殊数组格式，搜索结果为空时，返回空数组。",
+          "type": "static",
+          "valueType": "datasetQuote",
+          "valueDesc": "{\n  id: string;\n  datasetId: string;\n  collectionId: string;\n  sourceName: string;\n  sourceId?: string;\n  q: string;\n  a: string\n}[]"
+        },
+        {
+          "id": "system_error_text",
+          "key": "system_error_text",
+          "type": "error",
+          "valueType": "string",
+          "label": "workflow:error_text",
+          "valueDesc": "",
+          "description": ""
+        }
+      ],
+      "catchError": false
+    },
+    {
+      "nodeId": "k8OLrAvXjHRFaxvk",
+      "name": "AI 对话",
+      "intro": "AI 大模型对话",
+      "avatar": "core/workflow/template/aiChat",
+      "flowNodeType": "chatNode",
+      "showStatus": true,
+      "position": {
+        "x": 1679.2732338817093,
+        "y": -1370.0024113659815
+      },
+      "version": "4.9.7",
+      "inputs": [
+        {
+          "key": "model",
+          "renderTypeList": [
+            "settingLLMModel",
+            "reference"
+          ],
+          "label": "common:core.module.input.label.aiModel",
+          "valueType": "string",
+          "value": "gpt-4.1-mini",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "temperature",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "number",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "maxToken",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "number",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "isResponseAnswerText",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "value": true,
+          "valueType": "boolean",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "aiChatQuoteRole",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "string",
+          "value": "system",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "quoteTemplate",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "string",
+          "value": "{\n  \"content\": \"{{q}}\n{{a}}\"\n}\n",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "quotePrompt",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "string",
+          "value": "## 任务描述\n你是一个知识库回答助手，可以使用 <Cites></Cites> 中的内容作为你本次回答的参考。\n\n## 通用规则\n\n- 如果你不清楚答案，你需要澄清。\n- 保持答案与 <Cites></Cites> 中描述的一致。但是要避免提及你是从 <Cites></Cites> 获取的知识。\n- 使用 Markdown 语法优化回答格式。尤其是图片、表格、序列号等内容，需严格完整输出。\n- 如果有合适的图片作为回答，则必须输出图片。输出图片时，仅需输出图片的 url，不要输出图片描述，例如：![](url)。\n- 使用与问题相同的语言回答。\n\n<Cites>\n{{quote}}\n</Cites>",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "aiChatVision",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "boolean",
+          "value": true,
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "aiChatReasoning",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "boolean",
+          "value": true,
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "aiChatTopP",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "number",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "aiChatStopSign",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "string",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "aiChatResponseFormat",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "string",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "aiChatJsonSchema",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "string",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "systemPrompt",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "maxLength": 100000,
+          "isRichText": true,
+          "valueType": "string",
+          "label": "common:core.ai.Prompt",
+          "description": "common:core.app.tip.systemPromptTip",
+          "placeholder": "common:core.app.tip.chatNodeSystemPromptTip",
+          "value": "# Role\n\n你是一位严谨、公正的资深评标委员会专家成员，负责对【投标文件】进行符合性审查。你的职责是基于【招标文件要求】和检索到的【投标文件证据】，对每一项审查点做出具有法律效力的判定。\n\n# Context\n\n- **审查对象**：投标人的投标文件片段。\n- **审查依据**：招标文件中明确列出的资格要求、技术参数或商务条款。\n- **任务目标**：判断投标文件是否响应了招标文件的要求，并提供确凿证据。\n\n# Constraints (铁律)\n\n1. **证据闭环原则**：所有的判定必须有投标文件中的原文作为支撑。如果检索到的片段中没有提及某项要求，必须判定为【未找到描述】，严禁基于常识或猜测进行“默认符合”的判定。\n2. **严格比对原则**：\n   - 对于数值型指标（如注册资本、交货期、参数指标），必须进行精确的大小比较。\n   - 对于资质型指标（如证书、报告），必须检查是否提及“提供复印件”、“原件备查”或具体的证书名称/编号。\n3. **否决项敏感**：如果涉及“★”号条款或废标条款，判定必须极其慎重。一旦不符合，应在风险预警中明确指出“可能导致废标”。\n4. **客观中立**：只陈述事实，不表达个人情感。\n\n# Input Format\n\n- 【审查问题】：{question} （包含了具体的招标要求）\n- 【投标文件片段】：{quote} （由 RAG 系统检索出的相关上下文）\n\n# Output Format (严格 JSON 格式)\n\n为了便于系统自动化处理，请直接输出以下 JSON 结构，**不要包含 Markdown 代码块标记**：\n\n{\n    \"conclusion\": \"符合 / 不符合 / 部分响应 / 未找到描述\",\n    \"reason\": \"详细的判定逻辑。例如：招标文件要求注册资本≥1000万，投标文件显示注册资本为500万，不满足要求。\",\n    \"evidence\": \"直接引用投标文件中的原话，尽量保留上下文。\",\n    \"risk\": \"如果有废标风险，请在此说明；否则留空。\"\n}\n\n# Examples\n\n**Case 1: 符合**\n输入：\n问题：注册资本是否超过 1000 万？\n片段：...公司注册资本为人民币 2000 万元，实缴资本 2000 万元...\n输出：\n{\n    \"conclusion\": \"符合\",\n    \"reason\": \"招标文件要求注册资本超过 1000 万元。投标文件明确记载公司注册资本为 2000 万元，满足且优于招标要求。\",\n    \"evidence\": \"公司注册资本为人民币 2000 万元\",\n    \"risk\": \"\"\n}\n\n**Case 2: 不符合**\n输入：\n问题：是否具备 CMMI5 认证？\n片段：...我司目前已获得 CMMI3 级认证证书，正在申请 5 级...\n输出：\n{\n    \"conclusion\": \"不符合\",\n    \"reason\": \"招标文件要求具备 CMMI5 认证。投标文件仅显示持有 CMMI3 级证书，且 5 级尚在申请中，未满足当前持证要求。\",\n    \"evidence\": \"我司目前已获得 CMMI3 级认证证书，正在申请 5 级\",\n    \"risk\": \"此项为技术评分关键项，可能导致技术分被扣减或资格审查不通过。\"\n}\n\n**Case 3: 未找到**\n输入：\n问题：项目经理是否具备 PMP 证书？\n片段：...项目经理张三，拥有 10 年项目管理经验，曾主导过...（未提及证书）\n输出：\n{\n    \"conclusion\": \"未找到描述\",\n    \"reason\": \"在提供的投标文件片段中，介绍了项目经理张三的经验，但未发现关于其持有 PMP 证书的任何描述或证明材料。\",\n    \"evidence\": \"\",\n    \"risk\": \"若此项为资格后审必查项，可能导致废标风险，建议人工核查完整文档。\"\n}\n\n",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "history",
+          "renderTypeList": [
+            "numberInput",
+            "reference"
+          ],
+          "valueType": "chatHistory",
+          "label": "common:core.module.input.label.chat history",
+          "description": "workflow:max_dialog_rounds",
+          "required": true,
+          "min": 0,
+          "max": 50,
+          "value": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "quoteQA",
+          "renderTypeList": [
+            "settingDatasetQuotePrompt"
+          ],
+          "label": "",
+          "debugLabel": "知识库引用",
+          "valueType": "datasetQuote",
+          "value": [
+            "e6cbmJvL7PwKSWuX",
+            "quoteQA"
+          ],
+          "description": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "fileUrlList",
+          "renderTypeList": [
+            "reference",
+            "input"
+          ],
+          "label": "app:workflow.user_file_input",
+          "debugLabel": "文件链接",
+          "description": "app:workflow.user_file_input_desc",
+          "valueType": "arrayString",
+          "value": [
+            [
+              "448745",
+              "userFiles"
+            ]
+          ],
+          "toolDescription": ""
+        },
+        {
+          "key": "userChatInput",
+          "renderTypeList": [
+            "reference",
+            "textarea"
+          ],
+          "valueType": "string",
+          "label": "workflow:user_question",
+          "toolDescription": "用户问题",
+          "required": true,
+          "value": [
+            "448745",
+            "userChatInput"
+          ],
+          "debugLabel": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "history",
+          "key": "history",
+          "required": true,
+          "label": "common:core.module.output.label.New context",
+          "description": "将本次回复内容拼接上历史记录，作为新的上下文返回",
+          "valueType": "chatHistory",
+          "valueDesc": "{\n  obj: System | Human | AI;\n  value: string;\n}[]",
+          "type": "static"
+        },
+        {
+          "id": "answerText",
+          "key": "answerText",
+          "required": true,
+          "label": "common:core.module.output.label.Ai response content",
+          "description": "将在 stream 回复完毕后触发",
+          "valueType": "string",
+          "type": "static",
+          "valueDesc": ""
+        },
+        {
+          "id": "reasoningText",
+          "key": "reasoningText",
+          "required": false,
+          "label": "workflow:reasoning_content",
+          "valueType": "string",
+          "type": "static",
+          "invalid": true,
+          "valueDesc": "",
+          "description": ""
+        },
+        {
+          "id": "system_error_text",
+          "key": "system_error_text",
+          "type": "error",
+          "valueType": "string",
+          "label": "workflow:error_text",
+          "valueDesc": "",
+          "description": ""
+        }
+      ],
+      "catchError": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "448745",
+      "target": "e6cbmJvL7PwKSWuX",
+      "sourceHandle": "448745-source-right",
+      "targetHandle": "e6cbmJvL7PwKSWuX-target-left"
+    },
+    {
+      "source": "e6cbmJvL7PwKSWuX",
+      "target": "k8OLrAvXjHRFaxvk",
+      "sourceHandle": "e6cbmJvL7PwKSWuX-source-right",
+      "targetHandle": "k8OLrAvXjHRFaxvk-target-left"
+    }
+  ],
+  "chatConfig": {
+    "variables": [],
+    "scheduledTriggerConfig": {
+      "cronString": "",
+      "timezone": "Asia/Shanghai",
+      "defaultPrompt": ""
+    },
+    "_id": "696dd20478978fb05404edf9"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "id": "sample-fastgpt-template",
+  "name": "Sample Workflow Template",
+  "intro": "",
+  "avatar": "core/app/template/workflow",
+  "type": "workflow",
+  "workflow": {
+    "nodes": [
+      {
+        "nodeId": "userGuide",
+        "name": "系统配置",
+        "intro": "",
+        "avatar": "core/workflow/template/systemConfig",
+        "flowNodeType": "userGuide",
+        "position": { "x": -600, "y": -250 },
+        "version": "481",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "nodeId": "workflowStart",
+        "name": "开始",
+        "intro": "",
+        "avatar": "core/workflow/template/workflowStart",
+        "flowNodeType": "workflowStart",
+        "position": { "x": -150, "y": 100 },
+        "version": "481",
+        "inputs": [],
+        "outputs": [
+          {
+            "id": "userChatInput",
+            "key": "userChatInput",
+            "label": "用户问题",
+            "type": "static",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "nodeId": "aiChatNode",
+        "name": "AI 对话",
+        "intro": "AI 大模型对话",
+        "avatar": "core/workflow/template/aiChat",
+        "flowNodeType": "chatNode",
+        "showStatus": true,
+        "position": { "x": 220, "y": 100 },
+        "version": "4813",
+        "inputs": [
+          {
+            "key": "userChatInput",
+            "valueType": "string",
+            "value": ["workflowStart", "userChatInput"]
+          },
+          {
+            "key": "history",
+            "valueType": "number",
+            "value": 6
+          },
+          {
+            "key": "systemPrompt",
+            "valueType": "string",
+            "value": "你是一个有帮助的助手。"
+          }
+        ],
+        "outputs": [
+          {
+            "id": "answerText",
+            "key": "answerText",
+            "type": "static",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "nodeId": "answerNode",
+        "name": "回复",
+        "intro": "",
+        "avatar": "core/workflow/template/reply",
+        "flowNodeType": "answerNode",
+        "position": { "x": 580, "y": 100 },
+        "version": "481",
+        "inputs": [
+          {
+            "key": "text",
+            "valueType": "string",
+            "value": ["aiChatNode", "answerText"]
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "edges": [
+      {
+        "source": "workflowStart",
+        "sourceHandle": "workflowStart-source-right",
+        "target": "aiChatNode",
+        "targetHandle": "aiChatNode-target-left"
+      },
+      {
+        "source": "aiChatNode",
+        "sourceHandle": "aiChatNode-source-right",
+        "target": "answerNode",
+        "targetHandle": "answerNode-target-left"
+      }
+    ],
+    "chatConfig": {
+      "welcomeText": "你好，请输入你的问题。",
+      "variables": []
+    }
+  }
+}
