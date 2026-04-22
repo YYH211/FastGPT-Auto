@@ -1,67 +1,102 @@
 # FastGPT Workflow Generator
 
-`fastgpt-workflow-generator` 是一个面向 FastGPT 的 workflow JSON 生成 skill。
-它把自然语言需求或已有 workflow 草稿，约束性地落成可导入 FastGPT 的工作流 JSON。
+Generate import-ready FastGPT workflow JSON from natural-language requirements or existing workflow drafts.
 
-## Public Release Scope
+This repository is the public edition of the `fastgpt-workflow-generator` skill. It packages the skill spec, a curated template library, supporting references, and a local validator so others can reuse the workflow generation process instead of rebuilding FastGPT flows from scratch.
 
-这个公开版仓库只保留适合对外复用的模板、参考资料和校验脚本。
+## What This Repo Is For
 
-- 已移除明显偏内部业务流程的合同审批模板。
-- 已清理明文密钥、Webhook、固定实例地址和默认业务配置。
-- 仍保留部分集成类模板，但这类模板需要用户自行补充 API 地址、变量和鉴权信息。
+- Turn product or business requirements into FastGPT workflow JSON that is closer to import-ready.
+- Reuse real templates first, then patch them with the minimum necessary changes.
+- Validate workflow structure locally before importing into FastGPT.
+- Provide a safer public starting point without embedded secrets, internal webhooks, or fixed business defaults.
 
-## Repository Layout
+## Who Should Use It
 
-- `SKILL.md`: skill 主说明与生成约束
-- `references/`: schema、节点目录、导入结构、patch 策略、system config 映射等资料
-- `scripts/validate_fastgpt_workflow.py`: 本地 workflow JSON 校验器
-- `assets/`: 最小示例和 wrapper 示例
-- `templates/`: 对外公开模板库
+- Engineers building FastGPT applications or agents
+- Workflow designers who need importable JSON instead of screenshots or vague node descriptions
+- Teams maintaining reusable FastGPT templates
+- Users who want to inspect, patch, validate, and version workflow JSON locally
 
-所有相对路径默认相对当前 skill 根目录解析。
+## What Is Included
 
-## Requirements
+- `SKILL.md`: the core skill instructions and generation constraints
+- `templates/`: public workflow template library
+- `references/`: schema notes, import shapes, node catalog, patching guidance, and config mapping
+- `scripts/validate_fastgpt_workflow.py`: local validator for workflow JSON
+- `assets/`: minimal examples and wrapper examples
 
-- Python 3
-- 可导入 FastGPT workflow JSON 的运行环境
-- 用户自行提供可用模型、API 凭证和外部服务配置
+All relative paths are resolved from the skill root directory.
 
-## Validation
+## How To Use
 
-在 skill 根目录下校验新生成的 workflow：
+### Option 1: Use It As a Codex Skill
+
+1. Put this repository in your local Codex skills directory.
+2. Let Codex load [`SKILL.md`](./SKILL.md).
+3. Ask for a FastGPT workflow to be created, modified, repaired, or validated.
+4. Validate the generated JSON locally before importing it into FastGPT.
+
+### Option 2: Use It As a Template and Validation Repo
+
+1. Pick the closest template from `templates/`.
+2. Patch the workflow for your own use case.
+3. Run the validator on the result.
+4. Import it into your FastGPT environment and fill in runtime-specific configuration.
+
+## Quick Validation
+
+Validate a generated workflow with stricter import-oriented checks:
 
 ```bash
 python3 scripts/validate_fastgpt_workflow.py --strict-generated <workflow.json>
 ```
 
-检查模板文件是否满足基础结构：
+Validate a template file for base structure:
 
 ```bash
 python3 scripts/validate_fastgpt_workflow.py templates/<template>.json
 ```
 
-校验策略：
+Validation behavior:
 
-- 结构错误：直接报错
-- `--strict-generated` 约束：面向“生成结果可直接导入”的更严格检查
-- 兼容性或推荐项：警告
+- Structural errors fail immediately
+- `--strict-generated` applies tighter checks for generated import targets
+- Compatibility or recommended-field issues are reported as warnings
 
-## Template Categories
+## Template Library
 
-公开版模板分为三类，详见 `templates/README.md`：
+The public templates are grouped into three categories. See [`templates/README.md`](./templates/README.md) for the current list.
 
-- `core`: 通用场景，可作为优先基底
-- `integration`: 依赖外部 API、变量或第三方平台配置
-- `experimental`: 更偏参考或环境相关，不保证开箱即用
+- `core`: general-purpose templates that are suitable starting points
+- `integration`: templates that depend on external APIs, third-party platforms, or extra variables
+- `experimental`: templates mainly kept as structural references and not guaranteed to be plug-and-play
+
+## Public Release Scope
+
+This public edition keeps only the parts that are suitable for external reuse.
+
+- Internal contract-approval workflows were removed from the public release.
+- Plain-text secrets, webhooks, fixed instance URLs, and default business-specific configuration were cleaned out.
+- Some integration templates are still included, but users must provide their own API endpoints, variables, credentials, and environment-specific settings.
+
+## Requirements
+
+- Python 3
+- A FastGPT environment that can import workflow JSON
+- Your own model configuration, credentials, and external service settings where required
 
 ## Known Limitations
 
-- 模板中的模型名仅为示例，不保证在所有部署环境可直接使用。
-- 部分模板保留了 FastGPT 云端资源地址或平台字段命名，用于兼容导入结构，不代表这些域名是唯一依赖。
-- 校验器内置了一个基于当前资料整理的节点白名单，若 FastGPT 后续新增节点类型，可能需要同步更新。
+- Model names in templates are examples only and may not exist in your deployment.
+- Some templates retain FastGPT-specific field naming or cloud resource references for import compatibility.
+- The validator uses a node whitelist based on the current reference set and may need updates when FastGPT adds new node types.
 
 ## Notes
 
-- 这是一个社区整理的 skill 仓库，不是 FastGPT 官方仓库。
-- 如果当前公开模板库缺少你需要的场景，skill 应保守回退，而不是假设模板存在。
+- This is a community-maintained skill repository, not an official FastGPT repository.
+- If no public template is a good match, the workflow should be rebuilt conservatively instead of pretending a template already exists.
+
+## License
+
+MIT
