@@ -4,9 +4,9 @@
 
 ## 模板来源
 
-使用当前 skill 本地 `templates/` 目录中的内置模板。
+使用当前 skill 本地 `templates/` 目录中的公开模板。
 把这个目录视为当前 skill 的标准模板位置。
-不要只盯着下面前 4 个示例。应检查 `templates/` 里的全部模板 JSON，并选择最接近的真实基底。
+不要只盯着下面前 4 个示例。应检查 `templates/` 里的全部公开模板 JSON，并选择最接近的真实基底。
 
 核心锚点模板：
 
@@ -34,7 +34,7 @@
    - features: scheduled trigger, multiple chat nodes, aggregation
    - pattern: parallel-ish aggregation flow
 
-匹配时也应纳入考虑的其他内置模板：
+匹配时也应纳入考虑的其他公开模板：
 
 - `flux-kontext-image-generation.json`
 - `ppt-generation-assistant-jijyun.json`
@@ -42,7 +42,10 @@
 - `travel-budget-monitor-assistant.json`
 - `resume-screening-assistant-excel.json`
 - `interview-assistance-expert.json`
+- `it-operations-qa-assistant.json`
+- `smart-question-generation-assistant.json`
 
+公开版不包含内部合同审批类模板。
 如果当前副本的 `templates/` 目录中缺少这些文件，应明确说明这一限制；只有在确有必要时，才退回到直接构造或使用 `assets/` 中的示例。
 
 ## 生成策略
@@ -68,6 +71,8 @@
 - file processing → start from `document-translation-assistant.json`
 - complex pipeline with API + analysis → start from `resume-screening-assistant-feishu.json`
 - scheduled or multi-branch aggregation → start from `ai-finance-daily.json`
+- external API driven review / audit → prefer an `integration` template and clearly surface required variables
+- environment-specific workflow examples should be treated as references, not default anchors
 
 ## Patch 策略
 

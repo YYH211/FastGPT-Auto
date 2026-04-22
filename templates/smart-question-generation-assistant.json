@@ -1,4 +1,4 @@
-﻿{
+{
   "nodes": [
     {
       "nodeId": "userGuide",
@@ -315,10 +315,7 @@
           "valueType": "datasetQuote",
           "description": "",
           "toolDescription": "",
-          "value": [
-            "sFhaZebAafzCgYjX",
-            "quoteQA"
-          ]
+          "value": []
         },
         {
           "key": "fileUrlList",
@@ -1140,10 +1137,7 @@
           "valueType": "datasetQuote",
           "description": "",
           "toolDescription": "",
-          "value": [
-            "sFhaZebAafzCgYjX",
-            "quoteQA"
-          ]
+          "value": []
         },
         {
           "key": "fileUrlList",
@@ -2161,10 +2155,7 @@
           "valueType": "datasetQuote",
           "description": "",
           "toolDescription": "",
-          "value": [
-            "sFhaZebAafzCgYjX",
-            "quoteQA"
-          ]
+          "value": []
         },
         {
           "key": "fileUrlList",
@@ -4441,10 +4432,7 @@
           "valueType": "datasetQuote",
           "description": "",
           "toolDescription": "",
-          "value": [
-            "sFhaZebAafzCgYjX",
-            "quoteQA"
-          ]
+          "value": []
         },
         {
           "key": "fileUrlList",
@@ -5548,10 +5536,7 @@
           "valueType": "datasetQuote",
           "description": "",
           "toolDescription": "",
-          "value": [
-            "sFhaZebAafzCgYjX",
-            "quoteQA"
-          ]
+          "value": []
         },
         {
           "key": "fileUrlList",

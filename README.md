@@ -1,44 +1,67 @@
-# FastGPT 工作流生成器
+# FastGPT Workflow Generator
 
-这个目录就是 `fastgpt-workflow-generator` 的正式 skill 目录。
+`fastgpt-workflow-generator` 是一个面向 FastGPT 的 workflow JSON 生成 skill。
+它把自然语言需求或已有 workflow 草稿，约束性地落成可导入 FastGPT 的工作流 JSON。
 
-## 包含内容
+## Public Release Scope
 
-- `SKILL.md`：主 skill 说明
-- `references/`：schema、node、导入形态、规划方式、工具目录等参考资料
-- `scripts/validate_fastgpt_workflow.py`：本地工作流 JSON 校验脚本
-- `assets/`：内置示例工作流 JSON
-- `templates/`：内置真实模板 JSON，用作 patch 基底
+这个公开版仓库只保留适合对外复用的模板、参考资料和校验脚本。
 
-## 目录约定
+- 已移除明显偏内部业务流程的合同审批模板。
+- 已清理明文密钥、Webhook、固定实例地址和默认业务配置。
+- 仍保留部分集成类模板，但这类模板需要用户自行补充 API 地址、变量和鉴权信息。
 
-- `references/`、`scripts/`、`assets/`、`templates/` 都视为当前 skill 的组成部分。
-- 默认按当前 skill 根目录解析相对路径。
-- 不要依赖无关的外部绝对路径。
+## Repository Layout
 
-## 校验方式
+- `SKILL.md`: skill 主说明与生成约束
+- `references/`: schema、节点目录、导入结构、patch 策略、system config 映射等资料
+- `scripts/validate_fastgpt_workflow.py`: 本地 workflow JSON 校验器
+- `assets/`: 最小示例和 wrapper 示例
+- `templates/`: 对外公开模板库
 
-在 skill 根目录下，校验新生成的工作流时执行：
+所有相对路径默认相对当前 skill 根目录解析。
+
+## Requirements
+
+- Python 3
+- 可导入 FastGPT workflow JSON 的运行环境
+- 用户自行提供可用模型、API 凭证和外部服务配置
+
+## Validation
+
+在 skill 根目录下校验新生成的 workflow：
 
 ```bash
 python3 scripts/validate_fastgpt_workflow.py --strict-generated <workflow.json>
 ```
 
-如果只是想检查内置的 FastGPT 导出模板是否大体可用，而不强制套用“生成结果专用默认值”，执行：
+检查模板文件是否满足基础结构：
 
 ```bash
 python3 scripts/validate_fastgpt_workflow.py templates/<template>.json
 ```
 
-## 校验策略
+校验策略：
 
-- 始终报错：会影响 JSON 解析、导入结构识别、节点定义、边连接目标、或引用源节点存在性的结构问题。
-- `--strict-generated` 报错：会影响“新生成工作流导入后直接可用”的约束，这部分必须保持严格。
-- 仅警告：最小默认值建议、兼容性提示，以及一些在真实 FastGPT 导出模板中可能合法、但当前校验器无法完全归一化的写法。
+- 结构错误：直接报错
+- `--strict-generated` 约束：面向“生成结果可直接导入”的更严格检查
+- 兼容性或推荐项：警告
 
-## 模板说明
+## Template Categories
 
-- 这个 skill 设计上优先使用 `templates/` 中的真实模板。
-- 选择模板时应检查整个 `templates/` 目录，而不只是最早那 4 个示例。
-- 如果当前副本里缺少某些预期模板文件，skill 应明确说明，并保守回退，而不是假装模板存在。
-- `assets/` 中的内容只是示例，不能替代真实模板库。
+公开版模板分为三类，详见 `templates/README.md`：
+
+- `core`: 通用场景，可作为优先基底
+- `integration`: 依赖外部 API、变量或第三方平台配置
+- `experimental`: 更偏参考或环境相关，不保证开箱即用
+
+## Known Limitations
+
+- 模板中的模型名仅为示例，不保证在所有部署环境可直接使用。
+- 部分模板保留了 FastGPT 云端资源地址或平台字段命名，用于兼容导入结构，不代表这些域名是唯一依赖。
+- 校验器内置了一个基于当前资料整理的节点白名单，若 FastGPT 后续新增节点类型，可能需要同步更新。
+
+## Notes
+
+- 这是一个社区整理的 skill 仓库，不是 FastGPT 官方仓库。
+- 如果当前公开模板库缺少你需要的场景，skill 应保守回退，而不是假设模板存在。
